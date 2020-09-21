@@ -1,24 +1,22 @@
 {
+  "name": "tailwindcss-theme-types",
   "version": "0.1.0",
   "license": "ISC",
+  "author": "Jeff",
   "main": "dist/index.js",
+  "bin": {
+    "theme-types": "bin/index.js"
+  },
   "files": [
     "bin",
     "dist"
   ],
-  "engines": {
-    "node": ">=10"
-  },
-  "bin": {
-    "theme-types": "bin/index.js"
-  },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsc --build",
-    "tbuild": "tsdx build --entry src/cli.ts --target node --format cjs",
-    "test": "tsdx test",
+    "build": "tsdx build --entry src/cli.ts --target node --format cjs",
     "lint": "tsdx lint",
-    "prepare": "tsdx build"
+    "prepare": "yarn build",
+    "start": "tsdx watch",
+    "test": "tsdx test"
   },
   "husky": {
     "hooks": {
@@ -41,25 +39,7 @@
     "singleQuote": true,
     "trailingComma": "all"
   },
-  "name": "tailwindcss-theme-types",
-  "author": "Jeff",
-  "devDependencies": {
-    "@changesets/changelog-github": "0.2.7",
-    "@changesets/cli": "2.10.x",
-    "@types/normalize-path": "3.0.0",
-    "@typescript-eslint/eslint-plugin": "4.1.x",
-    "@typescript-eslint/parser": "4.1.x",
-    "@zazen/eslint-config": "2.0.x",
-    "husky": "4.3.x",
-    "prettier-plugin-packagejson": "2.2.x",
-    "ts-node": "9.0.0",
-    "tsdx": "0.13.3",
-    "tslib": "2.0.x",
-    "typescript": "4.0.x"
-  },
   "dependencies": {
-    "dlv": "1.1.3",
-    "dset": "2.0.1",
     "fast-glob": "3.2.4",
     "import-from": "3.0.0",
     "json-schema-to-typescript": "9.1.1",
@@ -69,5 +49,24 @@
     "sade": "1.7.3",
     "tailwindcss": "1.8.10",
     "tiny-invariant": "1.1.0"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "0.2.7",
+    "@changesets/cli": "2.10.x",
+    "@types/normalize-path": "3.0.x",
+    "@typescript-eslint/eslint-plugin": "4.1.x",
+    "@typescript-eslint/parser": "4.1.x",
+    "@zazen/eslint-config": "2.0.x",
+    "eslint": "7.9.x",
+    "husky": "4.3.x",
+    "lint-staged": "10.4.x",
+    "prettier": "2.1.x",
+    "prettier-plugin-packagejson": "2.2.x",
+    "tsdx": "0.13.3",
+    "tslib": "2.0.x",
+    "typescript": "4.0.x"
+  },
+  "engines": {
+    "node": ">=10"
   }
 }
