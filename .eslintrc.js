@@ -15,9 +15,10 @@ module.exports = {
             env: {
                 node: true,
             },
-            // rules: {
-            //     'prefer-const': 'off',
-            // },
+            rules: {
+                '@typescript-eslint/ban-types': 'warn',
+                '@typescript-eslint/no-unused-vars': 'off',
+            },
         },
     ],
 }
