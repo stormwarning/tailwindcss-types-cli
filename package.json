@@ -47,7 +47,7 @@
     "postcss-selector-parser": "6.0.2",
     "resolve-from": "5.0.0",
     "sade": "1.7.3",
-    "tailwindcss": "1.8.10",
+    "tailwindcss": "2.0.2",
     "tiny-invariant": "1.1.0"
   },
   "devDependencies": {
