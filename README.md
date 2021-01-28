@@ -2,6 +2,12 @@
 
 > Generate TypeScript type declarations from your Tailwind CSS theme.
 
+## Usage
+
+This doesn't run PurgeCSS before compiling the list of classes — make sure the
+output file is not included in the files PurgeCSS checks or it will find *all*
+the class strings and purge nothing, giving you a massive CSS file.
+
 ## Prior art
 
 Similar projects, adjacent goals.
