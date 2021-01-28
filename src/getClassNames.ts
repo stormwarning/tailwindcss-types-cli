@@ -6,6 +6,7 @@ import resolveConfig from 'tailwindcss/resolveConfig'
 
 import extractClassNames from './extractClassNames'
 import { getConfigPath } from './getConfigPath'
+import { processCss } from './utils'
 
 /**
  * 1. Build utilities based on current config
@@ -14,11 +15,7 @@ import { getConfigPath } from './getConfigPath'
  * 4. Run above for each tailwind theme key
  */
 
-type ClassNames = {
-    classNames: {
-        classNames: any
-    }
-}
+type ClassNames = Record<string, string[]>
 
 export async function getClassNames(cwd = process.cwd()): Promise<ClassNames> {
     const configPath = await getConfigPath(cwd)
@@ -28,38 +25,52 @@ export async function getClassNames(cwd = process.cwd()): Promise<ClassNames> {
     )
     const postcss = importFrom(tailwindBase, 'postcss') as Function
     const tailwindcss = importFrom(configDir, 'tailwindcss') as Function
+    const {corePluginList} = importFrom(configDir, 'tailwindcss/lib/corePluginList.js') as { corePluginList: string[]}
+
+    const pluginsDir = path.resolve(tailwindBase, 'lib', 'plugins')
+    // const twCorePlugins = await fs.promises
+    //     .readdir(pluginsDir)
+    //     .then((results) =>
+    //         results
+    //             .filter((file) => file.endsWith('.js'))
+    //             .map((plugin) => plugin.replace('.js', ''))
+    //             .filter((plugin) => plugin !== 'index'),
+    //     )
+    // console.log('DEFAULT CORE:', corePluginList)
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const tailwindConfig = require(configPath)
     const resolvedConfig = resolveConfig(tailwindConfig)
 
-    resolvedConfig.corePlugins = ['fontFamily']
+    /**
+     * @todo Merge corePlugins from local config with corePlugins from
+     *       default config.
+     */
+    // const corePlugins: Array<string> = resolvedConfig.corePlugins || []
 
-    let postcssResult
+    const allClassNames = {}
 
-    try {
-        postcssResult = await Promise.all(
-            ['base', 'components', 'utilities'].map((group) =>
-                postcss([tailwindcss(resolvedConfig)]).process(
-                    `@tailwind ${group};`,
-                    {
-                        from: undefined,
-                    },
-                ),
-            ),
-        )
-    } catch (error) {
-        console.log(error)
-        throw error
-    }
+    for (const plugin of corePluginList) {
+        const tempConfig = resolvedConfig
+        /**
+         * Override config to enable only the current `corePlugin`
+         * and disable all custom utilities.
+         *
+         * @todo Figure out how to include third-party plugins.
+         */
+        Object.assign(tempConfig, { corePlugins: [plugin] })
 
-    const [base, components, utilities] = postcssResult
+        const [base, components, utilities] = await processCss(postcss, tailwindcss, tempConfig)
 
-    return {
-        classNames: await extractClassNames([
+        /** Are `base` and `components` needed here? */
+        const { classNames } = await extractClassNames([
             { root: base.root, source: 'base' },
             { root: components.root, source: 'components' },
             { root: utilities.root, source: 'utilities' },
-        ]),
+        ])
+
+        allClassNames[plugin] = classNames
     }
+
+    return allClassNames
 }
