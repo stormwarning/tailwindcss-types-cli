@@ -21,8 +21,8 @@
     "build": "tsdx build --entry src/cli.ts --target node --format cjs",
     "changeset": "changeset add",
     "lint": "tsdx lint",
-    "prepare": "yarn build",
-    "release": "yarn build && changeset publish",
+    "prepare": "npm run build",
+    "release": "npm run build && changeset publish",
     "start": "tsdx watch",
     "test": "tsdx test"
   },
