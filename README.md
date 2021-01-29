@@ -1,6 +1,6 @@
-# tailwindcss-theme-types
+# tailwindcss-types-cli
 
-> Generate TypeScript type declarations from your Tailwind CSS theme.
+> A CLI to generate type declarations from your Tailwind CSS classes.
 
 ## Usage
 

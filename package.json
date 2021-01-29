@@ -1,11 +1,17 @@
 {
-  "name": "tailwindcss-theme-types",
-  "version": "0.1.0",
+  "name": "tailwindcss-types-cli",
+  "version": "0.0.0",
+  "description": "A CLI to generate type declarations from your Tailwind CSS classes.",
+  "keywords": [
+    "cli",
+    "tailwindcss",
+    "typescript"
+  ],
+  "repository": "stormwarning/tailwindcss-types-cli",
   "license": "ISC",
-  "author": "Jeff",
-  "main": "dist/index.js",
+  "author": "Jeff Nelson (@stormwarning)",
   "bin": {
-    "theme-types": "bin/index.js"
+    "twtypes": "bin/index.js"
   },
   "files": [
     "bin",
@@ -13,8 +19,10 @@
   ],
   "scripts": {
     "build": "tsdx build --entry src/cli.ts --target node --format cjs",
+    "changeset": "changeset add",
     "lint": "tsdx lint",
     "prepare": "yarn build",
+    "release": "yarn build && changeset publish",
     "start": "tsdx watch",
     "test": "tsdx test"
   },
@@ -25,16 +33,13 @@
   },
   "lint-staged": {
     "*.ts": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ],
     "package.json": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "prettier": {
-    "arrowParens": "always",
     "semi": false,
     "singleQuote": true,
     "trailingComma": "all"
