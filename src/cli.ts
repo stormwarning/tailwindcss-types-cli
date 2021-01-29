@@ -11,13 +11,13 @@ const prog = sade('theme-types')
 
 prog.command('build').action(() => {
     getClassNames().then(async (allClassNames) => {
-        const classNames: Schema = {}
+        let classNames: Schema = {}
 
         Object.entries(allClassNames).map(([group, classes]) => {
             classNames[group] = { enum: classes }
         })
 
-        for (const set of Object.keys(classNames)) {
+        for (let set of Object.keys(classNames)) {
             /**
              * Inline the object to avoid TypeScript narrowing the type.
              * @see https://github.com/bcherny/json-schema-to-typescript/issues/253#issuecomment-560388629

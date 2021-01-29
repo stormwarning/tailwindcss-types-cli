@@ -18,16 +18,19 @@ import { processCss } from './utils'
 type ClassNames = Record<string, string[]>
 
 export async function getClassNames(cwd = process.cwd()): Promise<ClassNames> {
-    const configPath = await getConfigPath(cwd)
-    const configDir = path.dirname(configPath)
-    const tailwindBase = path.dirname(
+    let configPath = await getConfigPath(cwd)
+    let configDir = path.dirname(configPath)
+    let tailwindBase = path.dirname(
         resolveFrom(configDir, 'tailwindcss/package.json'),
     )
-    const postcss = importFrom(tailwindBase, 'postcss') as Function
-    const tailwindcss = importFrom(configDir, 'tailwindcss') as Function
-    const {corePluginList} = importFrom(configDir, 'tailwindcss/lib/corePluginList.js') as { corePluginList: string[]}
+    let postcss = importFrom(tailwindBase, 'postcss') as Function
+    let tailwindcss = importFrom(configDir, 'tailwindcss') as Function
+    let { corePluginList } = importFrom(
+        configDir,
+        'tailwindcss/lib/corePluginList.js',
+    ) as { corePluginList: string[] }
 
-    const pluginsDir = path.resolve(tailwindBase, 'lib', 'plugins')
+    let pluginsDir = path.resolve(tailwindBase, 'lib', 'plugins')
     // const twCorePlugins = await fs.promises
     //     .readdir(pluginsDir)
     //     .then((results) =>
@@ -39,8 +42,8 @@ export async function getClassNames(cwd = process.cwd()): Promise<ClassNames> {
     // console.log('DEFAULT CORE:', corePluginList)
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const tailwindConfig = require(configPath)
-    const resolvedConfig = resolveConfig(tailwindConfig)
+    let tailwindConfig = require(configPath)
+    let resolvedConfig = resolveConfig(tailwindConfig)
 
     /**
      * @todo Merge corePlugins from local config with corePlugins from
@@ -48,10 +51,10 @@ export async function getClassNames(cwd = process.cwd()): Promise<ClassNames> {
      */
     // const corePlugins: Array<string> = resolvedConfig.corePlugins || []
 
-    const allClassNames = {}
+    let allClassNames = {}
 
-    for (const plugin of corePluginList) {
-        const tempConfig = resolvedConfig
+    for (let plugin of corePluginList) {
+        let tempConfig = resolvedConfig
         /**
          * Override config to enable only the current `corePlugin`
          * and disable all custom utilities.
@@ -60,10 +63,14 @@ export async function getClassNames(cwd = process.cwd()): Promise<ClassNames> {
          */
         Object.assign(tempConfig, { corePlugins: [plugin] })
 
-        const [base, components, utilities] = await processCss(postcss, tailwindcss, tempConfig)
+        let [base, components, utilities] = await processCss(
+            postcss,
+            tailwindcss,
+            tempConfig,
+        )
 
         /** Are `base` and `components` needed here? */
-        const { classNames } = await extractClassNames([
+        let { classNames } = await extractClassNames([
             { root: base.root, source: 'base' },
             { root: components.root, source: 'components' },
             { root: utilities.root, source: 'utilities' },

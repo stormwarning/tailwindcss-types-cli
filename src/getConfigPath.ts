@@ -11,7 +11,7 @@ const CONFIG_GLOB =
  * Get the path to the local Tailwind config file.
  */
 export async function getConfigPath(cwd = process.cwd()): Promise<string> {
-    const configPaths = (
+    let configPaths = (
         await glob(CONFIG_GLOB, {
             cwd,
             ignore: ['**/node_modules'],

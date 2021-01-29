@@ -15,14 +15,14 @@ import selectorParser from 'postcss-selector-parser'
 // }
 
 function getClassNamesFromSelector(selector) {
-    const classNames = []
-    const { nodes: subSelectors } = selectorParser().astSync(selector)
+    let classNames = []
+    let { nodes: subSelectors } = selectorParser().astSync(selector)
 
     for (let i = 0; i < subSelectors.length; i++) {
         // const scope = []
 
         for (let j = 0; j < subSelectors[i].nodes.length; j++) {
-            const node = subSelectors[i].nodes[j]
+            let node = subSelectors[i].nodes[j]
             // const pseudo = []
 
             if (node.type === 'class') {
@@ -53,7 +53,7 @@ function getClassNamesFromSelector(selector) {
 async function process(groups) {
     // const tree = {}
     // const commonContext = {}
-    const classNames = []
+    let classNames = []
 
     groups.forEach((group) => {
         group.root.walkRules((rule) => {

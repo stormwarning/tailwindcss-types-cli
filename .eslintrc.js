@@ -1,7 +1,9 @@
 module.exports = {
     extends: ['@zazen/eslint-config'],
     plugins: ['@typescript-eslint'],
-    rules: {},
+    rules: {
+        'prefer-const': 'off',
+    },
     overrides: [
         {
             files: ['**.ts'],
@@ -16,6 +18,8 @@ module.exports = {
                 node: true,
             },
             rules: {
+                'prefer-const': 'off',
+
                 '@typescript-eslint/ban-types': 'warn',
                 '@typescript-eslint/no-unused-vars': 'off',
             },
