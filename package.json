@@ -62,7 +62,7 @@
     "@typescript-eslint/eslint-plugin": "4.14.x",
     "@typescript-eslint/parser": "4.14.x",
     "@zazen/eslint-config": "2.1.x",
-    "eslint": "7.18.x",
+    "eslint": "7.19.x",
     "husky": "4.3.x",
     "import-sort-style-python": "1.0.x",
     "lint-staged": "10.5.x",
