@@ -47,7 +47,7 @@
   "dependencies": {
     "fast-glob": "3.2.4",
     "import-from": "3.0.0",
-    "json-schema-to-typescript": "9.1.1",
+    "json-schema-to-typescript": "10.1.4",
     "normalize-path": "3.0.0",
     "postcss-selector-parser": "6.0.4",
     "resolve-from": "5.0.0",
