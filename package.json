@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.2.8",
-    "@changesets/cli": "2.14.x",
+    "@changesets/cli": "2.16.x",
     "@types/normalize-path": "3.0.x",
     "@typescript-eslint/eslint-plugin": "4.14.x",
     "@typescript-eslint/parser": "4.14.x",
