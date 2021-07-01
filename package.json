@@ -45,7 +45,7 @@
     "trailingComma": "all"
   },
   "dependencies": {
-    "fast-glob": "3.2.4",
+    "fast-glob": "3.2.6",
     "import-from": "3.0.0",
     "json-schema-to-typescript": "9.1.1",
     "normalize-path": "3.0.0",
